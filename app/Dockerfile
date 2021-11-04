@@ -17,10 +17,13 @@ RUN pip install --upgrade pip
 COPY ./requirements.txt .
 RUN pip install -r requirements.txt
 
-# copy project
-COPY ./project/ .
+RUN apt update && apt install -y netcat
 
 # copy entrypoint
 COPY ./entrypoint.sh .
 
-# ENTRYPOINT [ "/usr/src/app/entrypoint.sh" ]
+# copy app
+COPY . .
+
+
+ENTRYPOINT [ "/usr/src/app/entrypoint.sh" ]
